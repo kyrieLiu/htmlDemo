@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style>
+			body{
+				padding: 0;
+				margin: 0;
+			}    
+			#suspend{
+			    width:90px;
+			    height:90px;
+			    border-radius:100%;
+			    position: absolute;
+			    background:  #3498fe;
+			}
+
+		</style>
+	</head>
+	<body>
+		 <div id="suspend"></div>
+		<script type="text/javascript">
+			window.onload=function(){
+				var screenHeight = document.documentElement.clientHeight;  
+				var screenWidth = document.documentElement.clientWidth;  
+				var suspendDiv = document.getElementById("suspend"); 
+				var divWidth=suspendDiv.clientWidth;
+				var divHeight=suspendDiv.clientHeight;
+				suspendDiv.addEventListener('touchmove', function(event) {
+				        // 如果这个元素的位置内只有一个手指的话
+				        if (event.targetTouches.length == 1) {
+				         event.preventDefault();// 阻止浏览器默认事件，重要 
+				          var touch = event.targetTouches[0]; 
+						  
+						   console.log('touch.clientX',touch.clientX)
+						  // console.log('touch.pageX',touch.pageX)
+						  
+						  let left
+						  
+						  if((touch.clientX)<=0){//超过左边
+						    left=0
+						  }else if(touch.clientX>(screenWidth-divWidth)){
+							  left=screenWidth-divWidth;
+						  }else{
+						    left = (touch.clientX-divWidth/2);
+						  }
+						  //console.log('left===',left)
+						  suspendDiv.style.left=left+'px';
+							let top
+				          if((touch.clientY)<=0){//超过顶部
+				            top=0
+				          }else if(touch.clientY>(screenHeight-divHeight)){//超过底部
+				            top=(screenHeight-divHeight)+"px";
+				          }else{
+				            top = (touch.clientY-divHeight/2) + "px";
+				          }
+						  //console.log('top',top)
+						  suspendDiv.style.top=top
+				        }
+				}, false);
+			}
+		</script>
+	</body>
+</html>
